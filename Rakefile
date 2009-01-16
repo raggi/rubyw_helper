@@ -11,6 +11,7 @@ PROJ.email = 'raggi@rubyforge.org'
 PROJ.url = 'http://github.com/raggi/rubyw_helper'
 PROJ.rubyforge.name = 'libraggi'
 PROJ.version = RubywHelper.version
+PROJ.gem.dependencies << 'exception_string'
 
 PROJ.exclude = %w(tmp$ bak$ ~$ CVS \.git \.hg \.svn ^pkg ^doc \.DS_Store \.cvs
   \.svn \.hgignore \.gitignore \.dotest \.swp$ ~$ \.bin$ \.h$ \.rc$ \.res$)
