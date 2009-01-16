@@ -7,7 +7,6 @@ spec/.bacon
 spec/helper.rb
 spec/runner
 spec/spec_rubyw_helper.rb
-tasks/ann.rake
 tasks/autospec.rake
 tasks/bacon.rake
 tasks/bones.rake
