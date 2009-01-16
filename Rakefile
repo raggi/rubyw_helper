@@ -9,7 +9,7 @@ PROJ.name = 'rubyw_helper'
 PROJ.authors = 'James Tucker'
 PROJ.email = 'raggi@rubyforge.org'
 PROJ.url = 'http://github.com/raggi/rubyw_helper'
-PROJ.rubyforge.name = 'raggi'
+PROJ.rubyforge.name = 'libraggi'
 PROJ.version = RubywHelper.version
 
 PROJ.exclude = %w(tmp$ bak$ ~$ CVS \.git \.hg \.svn ^pkg ^doc \.DS_Store \.cvs

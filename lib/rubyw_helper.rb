@@ -3,7 +3,7 @@ require 'exception_string'
 
 class RubywHelper
 
-  Version = VERSION = '0.1.0'
+  Version = VERSION = '0.1.1'
   def self.version; Version; end
 
   app_name = File.basename($0)
