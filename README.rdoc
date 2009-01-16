@@ -1,4 +1,4 @@
-rubyw_helper
+= rubyw_helper
     by James Tucker
     http://ra66i.org
     http://github.com/raggi/rubyw_helper

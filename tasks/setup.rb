@@ -26,7 +26,7 @@ PROJ = OpenStruct.new(
   :libs => [],
   :history_file => 'History.txt',
   :manifest_file => 'Manifest.txt',
-  :readme_file => 'README.txt',
+  :readme_file => 'README.rdoc',
 
   # Announce
   :ann => OpenStruct.new(
@@ -74,7 +74,7 @@ PROJ = OpenStruct.new(
   # Rdoc
   :rdoc => OpenStruct.new(
     :opts => [],
-    :include => %w(^lib/ ^bin/ ^ext/ \.txt$),
+    :include => %w(^lib/ ^bin/ ^ext/ \.txt$ \.rdoc$),
     :exclude => %w(extconf\.rb$),
     :main => nil,
     :dir => 'doc',
