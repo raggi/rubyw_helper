@@ -27,6 +27,18 @@ describe "RubywHelper" do
     $stdout, $stderr, $stdin = STDOUT, STDERR, STDIN
   end
 
+  should "have stdio_danger? when stdout, stderr, and stdin are all nulled" do
+    $stdout, $stderr, $stdin = Array.new(3) do
+      s = StringIO.new('')
+      def s.inspect
+        '#<IO:NUL>'
+      end
+      s
+    end
+    RubywHelper.new.stdio_danger?.should.eql true
+    $stdout, $stderr, $stdin = STDOUT, STDERR, STDIN
+  end
+
   should "restore the old stdios" do
     oout, oerr, oin = $stdout, $stderr, $stdin
     h = RubywHelper.new

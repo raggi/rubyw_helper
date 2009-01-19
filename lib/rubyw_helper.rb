@@ -3,7 +3,7 @@ require 'exception_string'
 
 class RubywHelper
 
-  Version = VERSION = '0.1.4'
+  Version = VERSION = '0.1.5'
   def self.version; Version; end
 
   app_name = File.basename($0)
@@ -28,8 +28,26 @@ class RubywHelper
     @old_out, @old_err, @old_in = $stdout, $stderr, $stdin
   end
 
+  # Returns true for the two common cases when you would not receive data from
+  # stdout, stderr and stdin, because they're nulled out in some way, closed,
+  # or in some other way unusable. This specific implementation provides
+  # checks for rubyw.exe behavior, where all IOs are closed, and Win32::Daemon
+  # behavior, where they're all nulled.
+  # Sometimes may not be accurate, recommendation is to redirect by
+  # configuration, and use this as a guide only where appropriate.
   def stdio_danger?
-    $stdout.closed? && $stderr.closed? && $stdin.closed?
+    # rubyw.exe running as a user:
+    $stdout.closed? && $stderr.closed? && $stdin.closed? ||
+    # rubyw.exe + Win32::Daemon started:
+    [$stdout, $stderr, $stdin].all? { |io| io.inspect =~ /NUL/ } ||
+    # rubyw.exe running as SYSTEM, pre Win32::Daemon started:
+    begin
+      open("CONIN$") {}
+      open("CONOUT$", "w") {}
+      false
+    rescue SystemCallError
+      true
+    end
   end
 
   # Takes a block, because under these conditions, it really helps developers
@@ -69,7 +87,10 @@ class RubywHelper
     fatal! "Cannot read from #{@stdin}" unless File.readable? @stdin
     [@stdout, @stderr].each do |f|
       dir = File.dirname(f)
-      safely { FileUtils.mkdir_p(dir) unless File.directory?(dir) }
+      safely do
+        FileUtils.mkdir_p(dir) unless File.directory?(dir)
+        open(f, 'w') {} unless File.exists?(f)
+      end
       next if File.writable? f
       fatal! "Cannot write to #{f}"
     end
